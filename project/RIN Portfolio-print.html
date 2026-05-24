@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>RIN — Freelance Engineer & Creator</title>
+<meta name="description" content="Freelance Web & iOS Engineer. Available for projects." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@300;400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="styles.css">
+
+<style>
+  /* ============================================================
+     Print-specific overrides
+     ============================================================ */
+  html, body {
+    background: #050505;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    cursor: auto !important;
+  }
+  body, body * { cursor: auto !important; }
+
+  /* Hide things that don't print well */
+  .loader,
+  .cursor-dot,
+  .cursor-ring,
+  .grain,
+  .vignette,
+  .ambient-3d-bg,
+  .nav,
+  .scroll-hint,
+  .hero-canvas,
+  .crystal-stage,
+  .crystal-tag,
+  .hero-grid,
+  canvas {
+    display: none !important;
+  }
+
+  /* Tweaks panel and its toggles */
+  [class*="tweak"],
+  [class*="Tweak"],
+  [data-tweaks-root] {
+    display: none !important;
+  }
+
+  /* Make sections flow naturally on screen */
+  section {
+    overflow: visible !important;
+    padding: 80px 0 !important;
+  }
+  section#top.hero {
+    min-height: auto !important;
+    padding: 80px 0 !important;
+  }
+
+  /* Make sure reveal animations don't hide content */
+  .reveal,
+  .reveal-stagger,
+  .reveal-stagger > * {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* ============================================================
+     @media print
+     ============================================================ */
+  @media print {
+    @page {
+      size: A4 portrait;
+      margin: 14mm 12mm;
+    }
+
+    html, body {
+      background: #050505 !important;
+      color: #F0EDE8 !important;
+    }
+
+    /* Page breaks between major sections */
+    section {
+      break-before: page;
+      page-break-before: always;
+      break-inside: auto;
+      padding: 24px 0 !important;
+    }
+    section:first-of-type,
+    section#top {
+      break-before: auto;
+      page-break-before: auto;
+    }
+
+    /* Avoid splitting key card-like elements */
+    .work-card,
+    .clients-panel,
+    .tech-cat,
+    .tl-item,
+    .about-grid,
+    .contact-block {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    /* Tighter section padding to fit on pages */
+    section { padding: 24px 0 !important; }
+
+    /* Container tightening */
+    .container {
+      padding: 0 16px !important;
+      max-width: 100% !important;
+    }
+
+    /* Hero: shrink hero on first page so it fits cleanly */
+    .hero-h1 {
+      font-size: 64px !important;
+      margin-bottom: 20px !important;
+    }
+    .hero-bio { max-width: 100% !important; }
+    .hero-foot { margin-top: 24px !important; }
+    .hero-content {
+      padding: 24px 24px 24px !important;
+    }
+
+    /* Section titles a touch smaller for paged layout */
+    .section-title {
+      font-size: clamp(32px, 4vw, 56px) !important;
+      margin-bottom: 16px !important;
+    }
+    .section-sub { margin-bottom: 32px !important; }
+
+    /* Works grid: cap height of each card area, allow 2-col fit */
+    .work-card { min-height: 0 !important; }
+    .work-thumb { min-height: 140px !important; }
+    .work-thumb-mark { font-size: 56px !important; }
+
+    /* About: stack avatar + body side-by-side, scale avatar */
+    .about-grid { gap: 36px !important; }
+    .avatar { max-width: 320px; }
+
+    /* Footer mark stays huge but contained */
+    .footer-mark {
+      font-size: 120px !important;
+      line-height: 0.85 !important;
+    }
+    .footer { padding: 24px 0 !important; }
+
+    /* Reveal forced visible (already done above globally) */
+    .reveal, .reveal-stagger, .reveal-stagger > * {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+
+    /* Remove drop shadows / heavy filters for cleaner print */
+    .work-card,
+    .clients-panel,
+    .glass {
+      box-shadow: none !important;
+    }
+
+    /* Links should be visible but not blue */
+    a { color: inherit !important; text-decoration: none !important; }
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="tweaks.jsx"></script>
+<script type="text/babel" src="app.jsx"></script>
+
+<script type="text/babel" data-presets="env,react">
+  // Auto-print after content + fonts ready (Babel-gated so it runs after JSX is parsed)
+  (async () => {
+    try {
+      // Wait for fonts
+      if (document.fonts && document.fonts.ready) {
+        await document.fonts.ready;
+      }
+      // Wait for React to mount + reveals to apply
+      const waitForMount = () => new Promise(res => {
+        const check = () => {
+          const root = document.getElementById("root");
+          if (root && root.querySelector("section#contact")) res();
+          else setTimeout(check, 100);
+        };
+        check();
+      });
+      await waitForMount();
+      // Small buffer for paint
+      await new Promise(r => setTimeout(r, 800));
+      window.print();
+    } catch (e) {
+      // Fallback — print anyway
+      setTimeout(() => window.print(), 2000);
+    }
+  })();
+</script>
+
+</body>
+</html>
