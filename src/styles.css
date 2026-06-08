@@ -639,6 +639,9 @@ section .container { position: relative; z-index: 1; }
   0%, 100% { transform: scaleY(0.4); transform-origin: top; opacity: 0.4; }
   50% { transform: scaleY(1); transform-origin: top; opacity: 1; }
 }
+@media (max-width: 768px) {
+  .scroll-hint { display: none; }
+}
 
 /* ============================================================
    3D placeholder — animated crystal
@@ -651,12 +654,28 @@ section .container { position: relative; z-index: 1; }
   width: 60vh;
   height: 60vh;
   z-index: 2;
-  pointer-events: none;
-  perspective: 1200px;
-  filter: drop-shadow(0 30px 60px rgba(201, 168, 76, 0.18));
 }
 @media (max-width: 1100px) {
   .crystal-stage { width: 50vh; height: 50vh; right: -10%; opacity: 0.55; }
+}
+
+/* ============================================================
+   Spotlight — hero accent glow (aceternity)
+   ============================================================ */
+.hero-spotlight {
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+  height: 169%;
+  width: 138%;
+  opacity: 0;
+  animation: spotlight 2s ease 0.75s 1 forwards;
+  top: -40%;
+  left: -20%;
+}
+@keyframes spotlight {
+  0% { opacity: 0; transform: translate(-72%, -62%) scale(0.5); }
+  100% { opacity: 1; transform: translate(-50%, -40%) scale(1); }
 }
 .crystal-tag {
   position: absolute;

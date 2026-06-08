@@ -1,5 +1,6 @@
 import { COPY } from '../data'
-import { CrystalCanvas } from './Shape3D'
+import { SplineScene } from './SplineScene'
+import { Spotlight } from './Spotlight'
 import { ParticleField } from './ParticleField'
 
 export function Hero({ lang }) {
@@ -8,10 +9,11 @@ export function Hero({ lang }) {
     <section id="top" className="hero">
       <div className="hero-grid" />
       <ParticleField />
+      <Spotlight fill="rgba(201,168,76,0.15)" />
       <div className="crystal-stage">
-        <CrystalCanvas />
+        <SplineScene scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode" style={{ width: '100%', height: '100%' }} />
       </div>
-      <div className="crystal-tag">[ Spline · GLB / 3D Object ]</div>
+      <div className="crystal-tag">[ Spline · 3D ]</div>
 
       <div className="hero-content">
         <div className="hero-meta reveal in">
