@@ -276,7 +276,7 @@ export function CrystalCanvas() {
       edgeAlpha={1}
       showRing={true}
       showVertices={true}
-      scaleMul={0.34}
+      scaleMul={0.31}
       hue="gold"
       mouseTrack={true}
     />
@@ -295,6 +295,8 @@ export function Ambient3DBackground() {
     const ctx = canvas.getContext('2d')
     let w, h, dpr, raf
 
+    const isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches
+
     const resize = () => {
       dpr = Math.min(window.devicePixelRatio || 1, 2)
       w = window.innerWidth
@@ -309,10 +311,19 @@ export function Ambient3DBackground() {
     window.addEventListener('resize', resize)
 
     let scrollY = window.scrollY
-    const onScroll = () => { scrollY = window.scrollY }
+    let scrollPauseTimer = null
+    const onScroll = () => {
+      scrollY = window.scrollY
+      if (isMobile) {
+        cancelAnimationFrame(raf)
+        clearTimeout(scrollPauseTimer)
+        scrollPauseTimer = setTimeout(() => { raf = requestAnimationFrame(render) }, 120)
+      }
+    }
     window.addEventListener('scroll', onScroll, { passive: true })
 
-    const SHAPES = ['octa', 'tetra', 'cube', 'icosa', 'diamond']
+    const ALL_SHAPES = ['octa', 'tetra', 'cube', 'icosa', 'diamond']
+    const SHAPES = isMobile ? ['octa', 'icosa'] : ALL_SHAPES
     const drifters = SHAPES.map((s, i) => {
       const geom = SHAPE_LIBRARY[s]()
       return {
@@ -381,6 +392,7 @@ export function Ambient3DBackground() {
       window.removeEventListener('resize', resize)
       window.removeEventListener('scroll', onScroll)
       cancelAnimationFrame(raf)
+      clearTimeout(scrollPauseTimer)
     }
   }, [])
 

@@ -9,6 +9,8 @@ export function ParticleField() {
     const ctx = canvas.getContext('2d')
     let w, h, dpr, raf
 
+    const isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches
+
     const resize = () => {
       const rect = canvas.getBoundingClientRect()
       dpr = Math.min(window.devicePixelRatio || 1, 2)
@@ -20,7 +22,7 @@ export function ParticleField() {
     resize()
     window.addEventListener('resize', resize)
 
-    const N = 60
+    const N = isMobile ? 20 : 60
     const particles = Array.from({ length: N }, () => ({
       x: Math.random() * w,
       y: Math.random() * h,
@@ -45,8 +47,19 @@ export function ParticleField() {
       raf = requestAnimationFrame(tick)
     }
     tick()
+
+    let scrollPauseTimer = null
+    const onScroll = () => {
+      cancelAnimationFrame(raf)
+      clearTimeout(scrollPauseTimer)
+      scrollPauseTimer = setTimeout(() => { raf = requestAnimationFrame(tick) }, 120)
+    }
+    if (isMobile) window.addEventListener('scroll', onScroll, { passive: true })
+
     return () => {
       window.removeEventListener('resize', resize)
+      if (isMobile) window.removeEventListener('scroll', onScroll)
+      clearTimeout(scrollPauseTimer)
       cancelAnimationFrame(raf)
     }
   }, [])
