@@ -116,7 +116,7 @@ export const COPY = {
    Clients / Adopted projects
    ============================================================ */
 export const CLIENTS = {
-  count: 1,
+  count: 12,
   items: [
     { name: null, year: "2026", kind: { en: "Web", jp: "Web制作" }, status: "ndisclosed" },
   ],

@@ -10,6 +10,7 @@ import { About } from './components/About'
 import { Works } from './components/Works'
 import { TechStack } from './components/TechStack'
 import { Career } from './components/Career'
+import { Pricing } from './components/Pricing'
 import { Contact } from './components/Contact'
 import { Footer } from './components/Footer'
 
@@ -36,6 +37,7 @@ export default function App() {
       <Works lang={lang} />
       <TechStack lang={lang} />
       <Career lang={lang} />
+      <Pricing />
       <Contact lang={lang} />
       <Footer lang={lang} />
     </>
